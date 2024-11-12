@@ -1,0 +1,23 @@
+FROM python:3.10-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 libxrender1 libxv-dev
+
+# Install Python libraries
+RUN pip install --no-cache-dir pandas tensorflow numpy
+
+# Optional: Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Optional: Create a work directory
+WORKDIR /app
+
+# Copy your application code to the container
+COPY . /app
+
+# Expose a port if needed
+# EXPOSE 8080
+
+# Define the default command to run when the container starts
+CMD ["python", "-m", "your_application_module"]
